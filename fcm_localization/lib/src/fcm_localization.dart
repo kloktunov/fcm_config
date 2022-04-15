@@ -31,12 +31,14 @@ Future<void> _handlebackground(RemoteMessage message,
   var body =
       messages._getMessage(data['body_loc_key'], locale)?.getMessage(data);
   if (title == null || body == null) return;
-  // FCMConfig().displayNotification(
-  //   title: title,
-  //   body: body,
-  //   data: message.data,
-  //   collapseKey: message.collapseKey,
-  // );
+
+  await FCMConfig.instance.local.displayNotification(
+    title: title,
+    body: body,
+    data: message.data,
+    id: message.collapseKey.hashCode,
+  );
+
 }
 
 class FCMLocalization {
